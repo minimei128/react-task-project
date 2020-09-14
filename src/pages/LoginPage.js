@@ -17,9 +17,7 @@ function Login() {
         Axios.post('http://localhost:3000/api/login', {
             employeeNumber: employeeNumber, 
             password: password,
-    }).then(() => {
-        alert("login successful");
-    });
+    })
 };
 
         return(

@@ -19,35 +19,33 @@ const db = mysql.createPool({
             resave: true,
             saveUninitialized: true
         }));
-        
+
         app.use(cors());
         app.use(express.json())
         app.use(bodyParser.urlencoded({extended: true}))
-    
-    //login page
-        app.post("/api/login", (req, res)=>{
+   
+    //post login 
+        app.post("/api/login", ( req, res)=>{
         
             const employeeNumber = req.body.employeeNumber;
             const password = req.body.password;
             const checkLogin = "SELECT (*) FROM TaskManagementDatabase.user WHERE (?,?)";
         
             if(employeeNumber && password){
-                db.query(checkLogin, [employeeNumber, password], (err, results) =>{
+                db.query(checkLogin, [employeeNumber, password], (err, result) =>{
 
-                    if(results.length > 0){
+                    if(result.length > 0){
                         req.session.loggedin = true;
                         req.session.employeeNumber = employeeNumber;
-                        res.redirect('/TaskManagementPage');
                     } else{
-                        alert('Incorrect Employee ID and/or Password!');
+                        console.log('Incorrect Employee ID and/or Password!');
                     }
                     res.end();
                 });
             } else{
-                alert('Please enter Employee ID and Password! ');
+                console.log('Please enter Employee ID and Password! ');
                 res.end();
             }
-                
             
         });
 
@@ -59,10 +57,4 @@ const db = mysql.createPool({
 app.listen(3001, ()=> {
     console.log("running on port 3001");
 });
-
-// copy
-// app.get("/", (req, res) => {
-
-//         res.send("boooo");
-// });
 
