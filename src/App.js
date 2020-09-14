@@ -12,21 +12,20 @@ import SideMenu from './components/FixedMenu';
 
 function App () {
 
-  return (
 
-    <div className="container">
+  return (
 
       <Router>
 
-        <Route path="/" exact component={Login} />
-        <Route path="/TaskPlannerPage" component={TaskPlanner} />
-        <Route path="/EmployeePage" component={Employee}/>
-        <Route path="/SettingPage" component={AccountSettings} />
-        <Route path="/FixedMenu" component={SideMenu}/>
-        <Route path="/404" component={NotFoundPage} />
+        <Route path="/" exact render= {(props) => <Login/>} />
+        <Route path="/TaskPlannerPage" render= {(props) => <TaskPlanner/>} />
+        <Route path="/EmployeePage" render= {(props) => <Employee/>}/>
+        <Route path="/SettingPage" render= {(props) => <AccountSettings/>} />
+        <Route path="/FixedMenu" render= {(props) => <SideMenu/>}/>
+        <Route path="/404" render= {(props) => <NotFoundPage/>} />
 
       </Router>
-    </div>
+    
 
         );
 }

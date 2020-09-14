@@ -1,5 +1,6 @@
-import React, {Component} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import Axios from 'axios';
 
 //import Login css
 import '../css/TaskPlanner.css'
@@ -17,9 +18,9 @@ import delete_card from '../icons/DeletePopUp.png';
 import delete_task from '../icons/Delete.png';
 
 
-class TaskPlanner extends Component {
+function TaskPlanner () {
 
-    render(){
+    
         return(
            
             // main container
@@ -445,6 +446,6 @@ class TaskPlanner extends Component {
                 
                 
         );
-    }
+
 }
 export default TaskPlanner;

@@ -1,5 +1,6 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import Axios from 'axios'
 
 //import Login css
 import '../css/Login.css'
@@ -7,9 +8,20 @@ import '../css/Login.css'
 //import images components here
 import logo from '../images/Logo.png';
 
-class Login extends Component {
+function Login() {
 
-    render(){
+    const [employeeNumber, setEmployeeNumber] = useState('')
+    const [password, setPassword] = useState('')
+   
+    const validateLogin = () => {
+        Axios.post('http://localhost:3000/api/login', {
+            employeeNumber: employeeNumber, 
+            password: password,
+    }).then(() => {
+        alert("login successful");
+    });
+};
+
         return(
 
                 <div className="container">
@@ -23,21 +35,37 @@ class Login extends Component {
 
                     {/* username input */}
                     <div className="form-group">
-                        <input type="number" className="form-control" placeholder="Employee ID"/>
+                        <input 
+                        type="employeeID" 
+                        className="form-control" 
+                        name="employeeID" 
+                        placeholder="Employee ID"
+                        onChange={(e)=> {
+                            setEmployeeNumber(e.target.value)
+                        }}/>
                     </div>
 
                     {/* password input */}
                     <div className="form-group">
-                    <input type="password" className="form-control" placeholder="Password" />
+                    <input 
+                    type="password" 
+                    className="form-control" 
+                    name="password" 
+                    placeholder="Password"
+                    onChange={(e)=> {
+                        setPassword(e.target.value)
+                    }} />
                     </div>
 
                     {/* login button */}
-                    <Link to = '/TaskPlannerPage'>
-                    <button type="login" className="login-btn">LOGIN</button>
-                    </Link>
+                    
+                    <button 
+                    type="login" 
+                    className="login-btn"
+                    onClick={validateLogin}>LOGIN</button>
+                    {/* <Link to = '/TaskPlannerPage'></Link> */}
                     </form>
                 </div>
         );
-    }
 }
 export default Login;
