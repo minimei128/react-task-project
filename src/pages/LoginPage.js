@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Redirect } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import { useHistory } from "react-router-dom";
 import Axios from 'axios'
 
 //import Login css
@@ -10,16 +10,21 @@ import logo from '../images/Logo.png';
 
 function Login() {
 
+    let history = useHistory();
+
+    useEffect(()=>{
+        Axios.get('http://localhost:3001/api/gets/TaskPlanner').then(() =>{
+            history.push("/TaskPlannerPage");
+        });
+    });
     const [employeeNumber, setEmployeeNumber] = useState('')
     const [password, setPassword] = useState('')
    
     const validateLogin = () => {
-        Axios.post('http://localhost:3000/api/posts/login', {
+        Axios.post('http://localhost:3001/api/posts/login', {
             employeeNumber: employeeNumber, 
             password: password,
-    }).then(() =>{
-            alert("successful login");
-    });
+     });
 };
 
         return(
@@ -31,7 +36,7 @@ function Login() {
                         <img src={logo} className="App-logo" alt="logo" />
                     </div>
 
-                <form className="login form-container">
+                <div className="login form-container">
 
                     {/* username input */}
                     <div className="form-group">
@@ -64,7 +69,7 @@ function Login() {
                     className="login-btn"
                     onClick={validateLogin}>LOGIN</button>
                     {/* <Link to = '/TaskPlannerPage'></Link> */}
-                    </form>
+                   </div>
                 </div>
         );
 }

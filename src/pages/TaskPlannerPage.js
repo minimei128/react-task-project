@@ -20,6 +20,11 @@ import delete_task from '../icons/Delete.png';
 
 function TaskPlanner () {
 
+//     const logout = () => {
+//         Axios.get('http://localhost:3001/api/logout').then(() => {
+//                 alert("Logout successfully")
+//         });
+// };
     
         return(
            
@@ -42,10 +47,12 @@ function TaskPlanner () {
                         <Link to = '/SettingPage' className="nav-link">Account Settings</Link>
                     </div>
 
-                    <div className="sidebar-item">
+                    <a 
+                    className="sidebar-item"
+                    >
                     <img src={logout_icon} className="App-logo" alt="icon" />
                         <Link to = '/' className="nav-link">Logout</Link>
-                    </div>
+                    </a>
              </div>
                 {/* end of SideMenu Bar */}
             

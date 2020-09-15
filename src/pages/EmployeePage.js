@@ -1,5 +1,6 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 //import Employee css
 import '../css/Employee.css'
@@ -13,9 +14,18 @@ import settings_icon from '../icons/Settings.png';
 import employees_icon from '../icons/Employees.png';
 import logout_icon from '../icons/Logout.png';
 
-class Employee extends Component {
+function Employee () {
 
-    render(){
+        // const [employeeID, setEmployeeID] = useState[""];
+        const [employeeNumber, setEmployeeNumber] = useState("");
+        const [firstName, setFirstName] = useState("");
+        const [lastName, setLastName] = useState("");
+        const [positionTitle, setPositionTitle] = useState("");
+
+        const addEmployee = () => {
+            Axios.post("http://localhost:3001/api/gets/addEmployee");
+        };
+    
         return(
 
                 <div className="container">
@@ -46,7 +56,7 @@ class Employee extends Component {
                 </div>
 
 <div className="main-view-container">
-           
+           {/* Display table */}
             <div className="left-side-wrapper">
                 <table className="table table-striped">
                     <thead>
@@ -87,20 +97,38 @@ class Employee extends Component {
             </table>
             </div>
 
+        {/* Employee detail form */}
 <div className="right-side-wrapper">
                 
-                <form className = "login-form-container" id="employee-form">
+                <form 
+                className = "login-form-container" 
+                id="employee-form">
                     {/* title */}
                     <h3>Employee List</h3>
                     <hr></hr>
-                    {/* employee number on table */}
+
+                    {/* employee id on table */}
+                     
                     <div className="form-group">
-                        <input type="employeeNumber" className="form-control" placeholder="#"/>
+                        <input 
+                        type="employeeNumber" 
+                        className="form-control" 
+                        placeholder="#"
+                        // onChange={(e) => {
+                        //     setEmployeeID(e.target.value);
+                        // }}
+                        />
                     </div>
 
                      {/* employee number */}
                      <div className="form-group">
-                        <input type="employeeID" className="form-control" placeholder="Employee Number"/>
+                        <input 
+                        type="employeeID" 
+                        className="form-control" 
+                        placeholder="Employee Number"
+                        onChange={(e)=> {
+                            setEmployeeNumber(e.target.value)
+                        }}/>
                     </div>
 
                     {/* first name */}
@@ -113,19 +141,11 @@ class Employee extends Component {
                         <input type="employeeLastName" className="form-control" placeholder="Last Name"/>
                     </div>
 
-                    {/* dropdown for position: DM, SM, RA */}
-                    <div className="form-group">
-                    
-                        <select className="custom-select form-control" id="inputGroupSelect04">
-                            <option selected>Position</option>
-                                <option value="1">Store Manager</option>
-                                    <option value="2">Duty Manager</option>
-                                         <option value="3">Retail Assistant</option>
-                        </select>
-                        <div className="input-group-append">
-                        </div>
-
-                </div>
+                      {/* positionTitle */}
+                      <div className="form-group">
+                        <input type="positionTitle" className="form-control" placeholder="Last Name"/>
+                    </div>
+                   
                     
                 <div className="button-group">
                     {/* login button */}
@@ -138,6 +158,6 @@ class Employee extends Component {
                     </div>
                 </div>
         );
-    }
+    
 }
 export default Employee;
