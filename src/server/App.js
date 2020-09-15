@@ -25,16 +25,17 @@ const db = mysql.createPool({
         app.use(bodyParser.urlencoded({extended: true}))
    
     //post login 
-        app.post("/api/login", ( req, res)=>{
+        app.post("/api/posts/login", ( req, res)=>{
         
             const employeeNumber = req.body.employeeNumber;
             const password = req.body.password;
-            const checkLogin = "SELECT (*) FROM TaskManagementDatabase.user WHERE (?,?)";
+            const checkLogin = "SELECT (*) FROM TaskManagementDatabase.user WHERE (employeeNumber = ? AND password = ?);"
         
             if(employeeNumber && password){
                 db.query(checkLogin, [employeeNumber, password], (err, result) =>{
 
                     if(result.length > 0){
+                        console.log(err);
                         req.session.loggedin = true;
                         req.session.employeeNumber = employeeNumber;
                     } else{

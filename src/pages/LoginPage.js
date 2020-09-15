@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
+import { Redirect } from "react-router-dom";
 import Axios from 'axios'
 
 //import Login css
@@ -14,10 +14,12 @@ function Login() {
     const [password, setPassword] = useState('')
    
     const validateLogin = () => {
-        Axios.post('http://localhost:3000/api/login', {
+        Axios.post('http://localhost:3000/api/posts/login', {
             employeeNumber: employeeNumber, 
             password: password,
-    })
+    }).then(() =>{
+            alert("successful login");
+    });
 };
 
         return(
