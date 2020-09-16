@@ -27,20 +27,20 @@ const db = mysql.createPool({
         app.use(express.json());
         app.use(bodyParser.urlencoded({extended: true}));
 
-    // //post logout
-    // app.get("/api/logout", (err, req, res)=>{
+    //get: logout
+    app.get("/api/logout", (err, req, res)=>{
         
         
-    //         console.log(err);
-    //         delete req.session;
-    //         res.redirect("/api/login");
+            console.log(err);
+            delete req.session;
+            res.redirect("/api/login");
         
 
-    //     // console.log(err);
-    //     // delete req.session;
-    //     // res.redirect("/api/login");
-    //     // console.log("end");
-    // });
+        // console.log(err);
+        // delete req.session;
+        // res.redirect("/api/login");
+        // console.log("end");
+    });
        
    
     //post: login employeenumber and password to validate in backend
@@ -87,11 +87,36 @@ const db = mysql.createPool({
         });
 
 //post: add employee information 
-        app.get('/api/gets/addEmployee', (req, res) => {
-            const sqlInsert = "INSERT INTO TaskManagementDatabase.employee (employeeNumber, firstName, lastName, positionTitle) VALUES (?,?,?,?);"
-            db.query(sqlInsert, [employeeNumber, firstName, lastName, positionTitle], (err, result)=> {
-                
-            })
+        app.post('/api/post/addEmployee', (req, res) => {
+
+           
+            const employeeNumber = req.body.employeeNumber;
+            const firstName = req.body.firstName;
+            const lastName = req.body.lastName;
+            const positionTitle = req.body.positionTitle;
+                              
+            const sqlInsert = ("INSERT INTO TaskManagementDatabase.employee (employeeNumber, firstName, lastName, positionTitle) VALUES (?,?,?,?);")
+            db.query(sqlInsert,[employeeNumber, firstName, lastName, positionTitle], (err, results)=> {
+                if(err){
+                    
+                    console.log(err);
+                }
+
+                console.log(results);
+            });
+        });
+
+//get: added employee information
+        app.get('/api/get/employeeList', (req, res)=>{
+            const sqlSelect = ("SELECT * FROM TaskManagementDatabase.employee;")
+            db.query(sqlSelect, (err, results)=> {
+                if(err){
+                    
+                    console.log(err);
+                }
+
+                res.send(results);
+            });
         });
 
 //settin up the server
@@ -100,3 +125,4 @@ app.listen(3001, ()=> {
 });
 
 module.exports = router;
+

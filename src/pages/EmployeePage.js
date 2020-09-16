@@ -21,9 +21,22 @@ function Employee () {
         const [firstName, setFirstName] = useState("");
         const [lastName, setLastName] = useState("");
         const [positionTitle, setPositionTitle] = useState("");
+        const [employeeList, setEmployeeList] = useState("");
+
+        useEffect(() => {
+            Axios.get("http://localhost:3001/api/get/EmployeeList").then((response)=>{
+                setEmployeeList(response.data);
+            });
+        });
 
         const addEmployee = () => {
-            Axios.post("http://localhost:3001/api/gets/addEmployee");
+            Axios.post("http://localhost:3001/api/post/addEmployee", {
+                employeeNumber: employeeNumber, 
+                firstName: firstName, 
+                lastName: lastName, 
+                positionTitle: positionTitle}).then(()=>{
+                    alert('successfully added employee')
+                });
         };
     
         return(
@@ -71,34 +84,19 @@ function Employee () {
   
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>20327</td>
-                            <td>Sheng</td>
-                            <td>Ye</td>
-                            <td>Store Manager</td>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>20548</td>
-                            <td>Michelle</td>
-                            <td>Phan</td>
-                            <td>Duty Manager</td>
-                        </tr>
-                
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>20221</td>
-                            <td>Sujan</td>
-                            <td>Le</td>
-                            <td>Retail Assistant</td>
-                        </tr>
                     </tbody>
             </table>
             </div>
 
-        {/* Employee detail form */}
-<div className="right-side-wrapper">
+        {/* Employee detail form */}    
+            <div className="right-side-wrapper">
                 
                 <form 
                 className = "login-form-container" 
@@ -133,26 +131,54 @@ function Employee () {
 
                     {/* first name */}
                     <div className="form-group">
-                        <input type="employeeFirstName" className="form-control" placeholder="First Name"/>
+                        <input 
+                        type="employeeFirstName" 
+                        className="form-control" 
+                        placeholder="First Name"
+                        onChange={(e)=> {
+                            setFirstName(e.target.value)
+                        }}
+                        />
                     </div>
 
                     {/* last name */}
                     <div className="form-group">
-                        <input type="employeeLastName" className="form-control" placeholder="Last Name"/>
+                        <input 
+                        type="employeeLastName" 
+                        className="form-control" 
+                        placeholder="Last Name"
+                        onChange={(e)=> {
+                            setLastName(e.target.value)
+                        }}/>
                     </div>
 
                       {/* positionTitle */}
                       <div className="form-group">
-                        <input type="positionTitle" className="form-control" placeholder="Last Name"/>
+                        <input 
+                        type="positionTitle" 
+                        className="form-control" 
+                        placeholder="Position Title"
+                        onChange={(e)=> {
+                            setPositionTitle(e.target.value)
+                        }}/>
                     </div>
                    
                     
                 <div className="button-group">
                     {/* login button */}
-                    <button type="add" className="add-btn">Add</button>
-                    <button type="update" className="update-btn">Update</button>
-                    <button type="delete" className="delete-btn">Delete</button>
+                    <button 
+                    type="add" 
+                    className="add-btn"
+                    onClick={addEmployee}>Add</button>
+                    <button 
+                    type="update" 
+                    className="update-btn">Update</button>
+                    <button 
+                    type="delete" 
+                    className="delete-btn">Delete</button>
                 </div>
+
+               
                     </form>
                     </div>
                     </div>

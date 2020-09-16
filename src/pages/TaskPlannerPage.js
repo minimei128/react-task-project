@@ -20,11 +20,11 @@ import delete_task from '../icons/Delete.png';
 
 function TaskPlanner () {
 
-//     const logout = () => {
-//         Axios.get('http://localhost:3001/api/logout').then(() => {
-//                 alert("Logout successfully")
-//         });
-// };
+    const logout = () => {
+        Axios.get('http://localhost:3001/api/logout').then(() => {
+                alert("Logout successfully")
+        });
+};
     
         return(
            
