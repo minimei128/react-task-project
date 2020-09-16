@@ -44,10 +44,15 @@ button:hover{
 .table{
     width: 600px;
     border: 1px solid #D3D3D3;
-    -webkit-box-shadow: 0 10px 20px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 5px 15px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.3);
     text-align: center;
     position: fixed;
     z-index: 100;
     top: 20px;
+}
+
+.App-logo{
+    width: 10px;
+    height: 10px;
 }

@@ -49,9 +49,14 @@ function TaskPlanner () {
 
                     <a 
                     className="sidebar-item"
+                    onClick={logout}
                     >
-                    <img src={logout_icon} className="App-logo" alt="icon" />
-                        <Link to = '/' className="nav-link">Logout</Link>
+                    <img 
+                    src={logout_icon} 
+                    className="App-logo" 
+                    alt="icon" 
+                    />
+                        Logout
                     </a>
              </div>
                 {/* end of SideMenu Bar */}

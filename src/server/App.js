@@ -33,7 +33,7 @@ const db = mysql.createPool({
         
             console.log(err);
             delete req.session;
-            res.redirect("/api/login");
+            
         
 
         // console.log(err);
@@ -118,6 +118,39 @@ const db = mysql.createPool({
                 res.send(results);
             });
         });
+
+//delete: delete employee from list
+        app.delete('/api/delete/:employeeNumber', (req, res)=>{
+            const name = req.params.employeeNumber;
+            const sqlDelete = "DELETE FROM TaskManagementDatabase.employee WHERE employeeNumber = ?"
+
+            db.query(sqlDelete, name, (err, result)=>{
+
+                if(err) {
+                    
+                    console.log(err);
+                }
+
+            });
+        });
+
+    //update: update employee dets from list
+    app.put('/api/update/updateEmployeeDetail', (req, res)=>{
+        const employeeNumber = req.body.employeeNumber;
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const positionTitle = req.body.positionTitle;
+        const sqlUpdate = "UPDATE TaskManagementDatabase.employee SET firstName = ?, lastName = ?, positionTitle =? WHERE employeeNumber = ?"
+
+        db.query(sqlUpdate, [firstName, lastName, positionTitle, employeeNumber], (err, result)=>{
+
+            if(err) {
+                
+                console.log(err);
+            }
+
+        });
+    });
 
 //settin up the server
 app.listen(3001, ()=> {
