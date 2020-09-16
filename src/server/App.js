@@ -152,6 +152,38 @@ const db = mysql.createPool({
         });
     });
 
+    //get: user information
+    app.get('/api/get/user', (req, res)=>{
+        
+        const sqlSelect = ("SELECT employeeNumber, firstName, lastName, positionTitle FROM TaskManagementDatabase.user;")
+        db.query(sqlSelect, (err, results)=> {
+            if(err){
+                
+                console.log(err);
+            }
+
+            res.send(results);
+        });
+    });
+
+      //update: user information
+      app.put('/api/update/updateUserDetail', (req, res)=>{
+        const employeeNumber = req.body.employeeNumber;
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const password = req.body.password;
+        const sqlUpdate = "UPDATE TaskManagementDatabase.user SET employeeNumber = ?, firstName = ?, lastName = ?, password = ?"
+
+        db.query(sqlUpdate, [employeeNumber, firstName, lastName, password], (err, result)=>{
+
+            if(err) {
+                
+                console.log(err);
+            }
+
+        });
+    });
+
 //settin up the server
 app.listen(3001, ()=> {
     console.log("running on port 3001");

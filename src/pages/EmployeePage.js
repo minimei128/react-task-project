@@ -17,15 +17,15 @@ import delete_task from '../icons/Delete.png';
 
 function Employee () {
 
-        // const [employeeID, setEmployeeID] = useState[""];
+        
         const [employeeNumber, setEmployeeNumber] = useState("");
         const [firstName, setFirstName] = useState("");
         const [lastName, setLastName] = useState("");
         const [positionTitle, setPositionTitle] = useState("");
 
-        const [newFirstName, setNewFirstName] = useState("");
-        const [newLastName, setNewLastName] = useState("");
-        const [newPositionTitle, setNewPositionTitle] = useState("");
+        // const [newFirstName, setNewFirstName] = useState("");
+        // const [newLastName, setNewLastName] = useState("");
+        // const [newPositionTitle, setNewPositionTitle] = useState("");
 
         const [employeeList, setEmployeeList] = useState([]);
 
@@ -52,13 +52,16 @@ function Employee () {
         const updateEmployee = (employeeNumber) => {
             Axios.put("http://localhost:3001/api/update/updateEmployeeDetail", {
                 employeeNumber: employeeNumber,
-                firstName: newFirstName,
-                lastName: newLastName,
-                positionTitle: newPositionTitle,
+                firstName: firstName,
+                lastName: lastName,
+                positionTitle: positionTitle,
             });
-            setNewFirstName("")
-            setNewLastName("")
-            setNewPositionTitle("")
+            setFirstName("")
+            setLastName("")
+            setPositionTitle("")
+            // setNewFirstName("")
+            // setNewLastName("")
+            // setNewPositionTitle("")
         };
         return(
 
@@ -168,9 +171,9 @@ function Employee () {
                         onChange={(e)=> {
                             setFirstName(e.target.value)
                         }}
-                        onChange={(e)=> {
-                            setNewFirstName(e.target.value)
-                        }}
+                        // onChange={(e)=> {
+                        //     setNewFirstName(e.target.value)
+                        // }}
                         />
                     </div>
 
@@ -183,9 +186,10 @@ function Employee () {
                         onChange={(e)=> {
                             setLastName(e.target.value)
                         }}
-                        onChange={(e)=> {
-                            setNewLastName(e.target.value)
-                        }}/>
+                        // onChange={(e)=> {
+                        //     setNewLastName(e.target.value)
+                        // }}
+                        />
                     </div>
 
                       {/* positionTitle */}
@@ -197,9 +201,10 @@ function Employee () {
                         onChange={(e)=> {
                             setPositionTitle(e.target.value)
                         }}
-                        onChange={(e)=> {
-                            setNewPositionTitle(e.target.value)
-                        }}/>
+                        // onChange={(e)=> {
+                        //     setNewPositionTitle(e.target.value)
+                        // }}
+                        />
                     </div>
                    
                     

@@ -1,5 +1,7 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+
+import Axios from "axios";
 
 //import Employee css
 import '../css/AccountSettings.css'
@@ -13,9 +15,40 @@ import settings_icon from '../icons/Settings.png';
 import employees_icon from '../icons/Employees.png';
 import logout_icon from '../icons/Logout.png';
 
-class AccountSettings extends Component {
+function AccountSettings () {
 
-    render(){
+
+    const [employeeNumber, setEmployeeNumber] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [positionTitle, setPositionTitle] = useState("");
+
+    const [newEmployeeNumber, setNewEmployeeNumber] = useState("");
+    const [newFirstName, setNewFirstName] = useState("");
+    const [newLastName, setNewLastName] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+
+    const [userList, setUserList] = useState([]);
+
+    useEffect(() => {
+        Axios.get("http://localhost:3001/api/get/user").then((response)=>{
+            setUserList(response.data);
+        });
+    });
+
+    const updateUser= () => {
+        Axios.put("http://localhost:3001/api/update/updateUserDetail", {
+            employeeNumber: newEmployeeNumber,
+            firstName: newFirstName,
+            lastName: newLastName,
+            password: newPassword,
+        });
+        setNewEmployeeNumber("")
+        setNewFirstName("")
+        setNewLastName("")
+        setNewPassword("")
+    };
+
         return(
 
                 <div className="container">
@@ -51,7 +84,6 @@ class AccountSettings extends Component {
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Employee Number</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
@@ -59,15 +91,20 @@ class AccountSettings extends Component {
                         </tr>
                        </thead>
   
+                       {userList.map((val) => {
+                return (
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>20327</td>
-                            <td>Sheng</td>
-                            <td>Ye</td>
-                            <td>Store Manager</td>
-                        </tr>
-                    </tbody>
+                    <tr>
+
+                        <th scope="row">{val.employeeNumber}</th>
+                        <td>{val.firstName}</td>
+                        <td>{val.lastName}</td>
+                        <td>{val.positionTitle}</td>
+                        
+                    </tr>
+                </tbody>
+                );
+            })}
             </table>
             </div>
 
@@ -78,35 +115,59 @@ class AccountSettings extends Component {
                     <h3>Account Settings</h3>
                     <hr></hr>
                     {/* employee number on table */}
-                    <div className="form-group">
-                        <input type="employeeNumber" className="form-control" placeholder="#"/>
-                    </div>
 
                      {/* employee number */}
                      <div className="form-group">
-                        <input type="employeeID" className="form-control" placeholder="Employee Number"/>
+                        <input 
+                        type="employeeID" 
+                        className="form-control" 
+                        placeholder="Employee Number"
+                        onChange={(e)=> {
+                            setNewEmployeeNumber(e.target.value)
+                        }}/>
                     </div>
 
                     {/* first name */}
                     <div className="form-group">
-                        <input type="employeeFirstName" className="form-control" placeholder="First Name"/>
+                        <input 
+                        type="employeeFirstName" 
+                        className="form-control" 
+                        placeholder="First Name"
+                        onChange={(e)=> {
+                            setNewFirstName(e.target.value)
+                        }}/>
                     </div>
 
                     {/* last name */}
                     <div className="form-group">
-                        <input type="employeeLastName" className="form-control" placeholder="Last Name"/>
+                        <input 
+                        type="employeeLastName" 
+                        className="form-control" 
+                        placeholder="Last Name"
+                        onChange={(e)=> {
+                            setNewLastName(e.target.value)
+                        }}/>
                     </div>
 
                     {/* change password */}
 
                     <div className="form-group">
-                        <input type="password" className="form-control" placeholder="Change Password"/>
+                        <input 
+                        type="password" 
+                        className="form-control" 
+                        placeholder="Change Password"
+                        onChange={(e)=> {
+                            setNewPassword(e.target.value)
+                        }}/>
                     </div>
                     
                 <div className="button-group">
-                    {/* login button */}
+                    {/* update button */}
                    
-                    <button type="update" className="update-btn">Update</button>
+                    <button 
+                    type="update" 
+                    className="update-btn"
+                    onClick={updateUser}>Update</button>
                     
                 </div>
                     </form>
@@ -114,6 +175,5 @@ class AccountSettings extends Component {
                     </div>
                 </div>
         );
-    }
 }
 export default AccountSettings;
